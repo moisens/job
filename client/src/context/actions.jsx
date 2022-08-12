@@ -1,9 +1,6 @@
-import React from 'react'
+export const DISPLAY_ALERT = "SHOW_ALERT";
 
-const actions = () => {
-  return (
-    <div>actions</div>
-  )
-}
 
-export default actions
+
+
+

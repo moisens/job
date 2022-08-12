@@ -13,20 +13,24 @@ const initialState = {
 const Register = () => {
   const [values, setValues] = useState(initialState);
   //global state and useNavigate
-  const { isLoading, showAlert } = useAppContext()
-  
+  const { isLoading, showAlert, displayAlert } = useAppContext();
 
   const toggleMember = () => {
-    setValues({ ...values, isMember: !values.isMember })
-  }
+    setValues({ ...values, isMember: !values.isMember });
+  };
 
   const handleChange = (e) => {
-    console.log(e.target);
+    setValues({ ...values, [e.target.name]: e.target.value });
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target);
+    const { name, email, password, isMember } = values;
+    if (!email || !password || (!isMember && !name)) {
+      displayAlert();
+      return;
+    }
+    console.log("VALUES FROM ONSUBMIT: ", values);
   };
 
   return (
@@ -39,13 +43,13 @@ const Register = () => {
         {/*Input name*/}
         {!values.isMember && (
           <FormRow
-          type="text"
-          name="name"
-          value={values.name}
-          handleChange={handleChange}
-        />
+            type="text"
+            name="name"
+            value={values.name}
+            handleChange={handleChange}
+          />
         )}
-        
+
         {/*Input email*/}
         <FormRow
           type="email"
@@ -66,11 +70,7 @@ const Register = () => {
         </button>
         <p>
           {values.isMember ? "Not a member yet?" : "Already a member?"}
-          <button 
-            type="button" 
-            onClick={toggleMember} 
-            className="member-btn"
-          >
+          <button type="button" onClick={toggleMember} className="member-btn">
             {values.isMember ? "Register" : "Login"}
           </button>
         </p>
