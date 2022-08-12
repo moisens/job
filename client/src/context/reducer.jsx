@@ -1,9 +1,10 @@
 import React from 'react'
 
-const reducer = () => {
-  return (
-    <div>reducer</div>
-  )
+const reducer = (state, action) => {
+  throw new Error(`no such action: ${action.type}`)
+  
+
+  
 }
 
 export default reducer
