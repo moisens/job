@@ -1,18 +1,20 @@
 import express from "express";
-import notFoundMiddleware from "./middleware/not-found.js"
-import errorHandlerMidleware from "./middleware/error-handler.js"
+import notFoundMiddleware from "./middleware/not-found.js";
+import errorHandlerMidleware from "./middleware/error-handler.js";
 
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   //throw new Error("error")
-  res.send('Welcome!')
-})
+  res.send("Welcome!");
+});
 
-app.use(notFoundMiddleware)
-app.use(errorHandlerMidleware)
+app.use(notFoundMiddleware);
+app.use(errorHandlerMidleware);
 
 const port = process.env.PORT || 5000;
 
-app.listen(port, () => console.log(`Server started on port ${port}`))
+app.listen(port, () => console.log(`Server started on port ${port}`));
