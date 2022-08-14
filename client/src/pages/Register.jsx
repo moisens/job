@@ -6,7 +6,7 @@ import useAppContext from "../hooks/useAppContext";
 const initialState = {
   name: "",
   email: "",
-  passwprd: "",
+  password: "",
   isMember: true,
 };
 
