@@ -1,4 +1,6 @@
 import express from "express";
+import "express-async-errors";
+
 //middleware
 import notFoundMiddleware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
@@ -10,6 +12,8 @@ import jobsRouter from "./routes/jobsRoutes.js";
 //dotenv
 import dotenv from "dotenv";
 dotenv.config();
+
+
 
 
 const app = express();
