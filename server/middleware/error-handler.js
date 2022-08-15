@@ -1,13 +1,23 @@
-import { StatusCodes }from "http-status-codes"
+import { StatusCodes } from "http-status-codes";
 
+const errorHandlerMiddleware = (err, req, res, next) => {
+  console.log(err);
 
-const errorHandlerMiddleware = (error, req, res, next) => {
-  console.log(error);
   const defaultError = {
     statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
-    msg: 'Something went wrong, try again later'
+    msg: "Something went wrong, try again later",
+  };
+
+  if (err.name === "ValidationError") {
+    defaultError.statusCode = StatusCodes.BAD_REQUEST;
+    //defaultError.msg = err.message
+    defaultError.msg = Object.values(err.errors)
+      .map((item) => item.message)
+      .join(",");
   }
-  res.status(defaultError.StatusCode).json({ msg: error });
+
+  res.status(defaultError.statusCode).json({ msg: defaultError.msg });
+  //res.status(defaultError.statusCode).json({ msg: err });
 };
 
 export default errorHandlerMiddleware;

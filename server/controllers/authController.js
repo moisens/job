@@ -1,5 +1,5 @@
 import User from "../models/User.js";
-import { StatusCodes }from "http-status-codes"
+import { StatusCodes } from 'http-status-codes'
 
 
 
