@@ -37,6 +37,12 @@ const UserSchema = new mongoose.Schema({
   }
 })
 
+UserSchema.pre("save", function() {
+  console.log(this.password);
+})
+
+
+
 const User = mongoose.model("User", UserSchema)
 
 export default User;
