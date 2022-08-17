@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import validator from "validator";
-import bcrypt from "bcryptjs"
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 
 
@@ -44,7 +45,7 @@ UserSchema.pre("save", async function() {
 })
 
 UserSchema.methods.createJWT = function() {
-  console.log(this);
+  return jwt.sign({userId: this._id}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_LIFETIME})
   
 }
 
