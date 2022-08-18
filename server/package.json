@@ -5,7 +5,10 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon server"
+    "server": "nodemon server --ignore client",
+    "client": "cd ../client && npm run dev",
+    "start": "concurrently --kill-others-on-fail \" npm run server\" \" npm run client\""
+    
   },
   "keywords": [],
   "author": "",
@@ -21,6 +24,7 @@
     "validator": "^13.7.0"
   },
   "devDependencies": {
+    "concurrently": "^7.3.0",
     "nodemon": "^2.0.19"
   }
 }
