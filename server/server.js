@@ -21,10 +21,10 @@ import cors from "cors";
 
 
 
-app.use(cors())
+//app.use(cors())
 app.use(express.json());
 
-app.get("/", (req, res) => {
+app.get("/api/v1", (req, res) => {
   //throw new Error("error")
   res.json({msg: "Welcome!"});
 });
