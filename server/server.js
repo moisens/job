@@ -1,9 +1,9 @@
 import express from "express";
 const app = express();
-//dotenv
 import dotenv from "dotenv";
 dotenv.config();
 import "express-async-errors";
+import morgan from "morgan";
 //connect db
 import connectDB from "./db/connect.js";
 //router
@@ -21,6 +21,10 @@ import cors from "cors";
 
 
 
+
+if (process.env.NODE_ENV !== "production") {
+  app.use(morgan("dev"))
+}
 //app.use(cors())
 app.use(express.json());
 
