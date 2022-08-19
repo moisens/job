@@ -9,15 +9,19 @@ import {
   REGISTER_USER_ERROR,
 } from "./actions";
 
+const user = localStorage.getItem("user");
+const token = localStorage.getItem("token");
+const userLocation = localStorage.getItem("location");
+
 export const initialState = {
   isLoading: false,
   showAlert: false,
   alertText: "",
   alertType: "",
-  user: null,
-  token: null,
-  userLocation: "",
-  jobLocation: "",
+  user: user ? JSON.parse(user) : null,
+  token: token,
+  userLocation: userLocation || "",
+  jobLocation: userLocation || "",
 };
 
 export const AppContext = createContext();
@@ -36,6 +40,18 @@ export const AppProvider = ({ children }) => {
     }, 3000);
   };
 
+  const addUserToLocalStorage = ({ user, token, location }) => {
+    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("token", token);
+    localStorage.setItem("location", location);
+  };
+
+  const removeUserToLocalStorage = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("location");
+  };
+
   const registerUser = async (currentUser) => {
     dispatch({ type: "REGISTER_USER_BEGIN" });
 
@@ -47,7 +63,8 @@ export const AppProvider = ({ children }) => {
         type: "REGISTER_USER_SUCCESS",
         payload: { user, token, location },
       });
-      //local storage later
+
+      addUserToLocalStorage({ user, token, location });
     } catch (error) {
       console.log(error.response);
       dispatch({
