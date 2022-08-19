@@ -4,9 +4,6 @@ import { useState, useEffect } from "react";
 import useAppContext from "../hooks/useAppContext";
 import { useNavigate } from "react-router-dom";
 
-
-
-
 const initialState = {
   name: "",
   email: "",
@@ -17,7 +14,15 @@ const initialState = {
 const Register = () => {
   const [values, setValues] = useState(initialState);
   //global state and useNavigate
-  const { isLoading, showAlert, displayAlert, registerUser, user, loginUser } = useAppContext();
+  const {
+    isLoading,
+    showAlert,
+    displayAlert,
+    registerUser,
+    user,
+    loginUser,
+    setupUser,
+  } = useAppContext();
   const navigate = useNavigate();
 
   const toggleMember = () => {
@@ -36,13 +41,22 @@ const Register = () => {
       return;
     }
 
-    const currentUser = { name, email, password }
+    const currentUser = { name, email, password };
     if (isMember) {
-      loginUser(currentUser);
+      //loginUser(currentUser);
+      setupUser({
+        currentUser,
+        endPoint: "login",
+        alertText: "Successfully logged in! Redirecting...",
+      });
     } else {
-      registerUser(currentUser)
+      //registerUser(currentUser);
+      setupUser({
+        currentUser,
+        endPoint: "register",
+        alertText: "User created! Redirecting...",
+      });
     }
-    
   };
 
   useEffect(() => {
@@ -52,8 +66,6 @@ const Register = () => {
       }, 3000);
     }
   }, [user, navigate]);
-
-
 
   return (
     <Wrapper className="full-page">
@@ -87,20 +99,12 @@ const Register = () => {
           value={values.password}
           handleChange={handleChange}
         />
-        <button 
-          type="submit" 
-          className="btn btn-block"
-          disabled={isLoading}
-        >
+        <button type="submit" className="btn btn-block" disabled={isLoading}>
           submit
         </button>
         <p>
           {values.isMember ? "Not a member yet?" : "Already a member?"}
-          <button 
-            type="button" 
-            onClick={toggleMember} 
-            className="member-btn"
-          >
+          <button type="button" onClick={toggleMember} className="member-btn">
             {values.isMember ? "Register" : "Login"}
           </button>
         </p>
