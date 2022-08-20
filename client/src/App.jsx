@@ -1,11 +1,11 @@
-import { Register, Landing, Error } from "./pages";
+import { Register, Landing, Error, ProtectedRoute } from "./pages";
 import {
   AllJobs,
   Profile,
   SharedLayout,
   Stats,
   AddJob,
-} from "./pages/dashboard/index";
+} from "./pages/dashboard";
 import styled from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -13,8 +13,15 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/">
-          <Route path="stats" element={<Stats />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <SharedLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index="stats" element={<Stats />} />
           <Route path="all-jobs" element={<AllJobs />} />
           <Route path="add-job" element={<AddJob />} />
           <Route path="profile" element={<Profile />} />
