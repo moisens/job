@@ -12,6 +12,7 @@ const Navbar = () => {
     <Wrapper>
       <div className="nav-center">
         <button 
+          type="button"
           className="toggle-btn"
           onClick={() => console.log("toggle sidebar")}
         >
@@ -22,13 +23,18 @@ const Navbar = () => {
           <h3 className="logo-text">dashboard</h3>
         </div>
         <div className="btn-container">
-          <button className="btn" onClick={() => console.log("show log out")}>
+          <button 
+            className="btn" 
+            type="button" 
+            onClick={() => console.log("show log out")}
+          >
             <FaUserCircle />
-            Brian
+            brian
             <FaCaretDown />
           </button>
           <div className="dropdown show-dropdown">
-            <button 
+            <button
+              type="button" 
               onClick={() => console.log("logout user")} 
               className="dropdown-btn">logout</button>
           </div>
