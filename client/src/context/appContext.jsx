@@ -13,6 +13,7 @@ import {
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
+  TOGGLE_SIDEBAR,
 } from "./actions";
 
 const user = localStorage.getItem("user");
@@ -28,6 +29,8 @@ export const initialState = {
   token: token,
   userLocation: userLocation || "",
   jobLocation: userLocation || "",
+  showSidebar: false,
+
 };
 
 export const AppContext = createContext();
@@ -124,6 +127,10 @@ export const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const toggleSidebar = () => {
+    dispatch({ type: "TOGGLE_SIDEBAR" })
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -132,6 +139,7 @@ export const AppProvider = ({ children }) => {
         //registerUser,
         //loginUser,
         setupUser,
+        toggleSidebar,
       }}
     >
       {children}
