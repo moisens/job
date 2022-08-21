@@ -3,41 +3,31 @@ import { MdQueryStats } from "react-icons/md";
 import { FaWpforms } from "react-icons/fa";
 import { ImProfile } from "react-icons/im";
 
-
-
 const links = [
   {
     id: 1,
     text: "stats",
     path: "/",
-    icons: <IoBarChartSharp />
+    //icon: <IoBarChartSharp />
   },
   {
     id: 2,
     text: "all jobs",
     path: "all-jobs",
-    icons: <MdQueryStats />
+    //icon: <MdQueryStats />
   },
   {
     id: 3,
     text: "add job",
     path: "add-job",
-    icons: <FaWpforms />
+    //icon: <FaWpforms />
   },
   {
     id: 4,
     text: "profile",
     path: "profile",
-    icons: <ImProfile />
+    //icon: <ImProfile />
   },
 ];
 
 export default links;
-
-
-
-
-
-
-
-
