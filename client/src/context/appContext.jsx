@@ -37,10 +37,13 @@ export const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  //Axios - Global setup
-  axios.defaults.headers.common["Authorization"] = `Bearer ${state.token}`
-
+  //Instance axios
+  const authFetch = axios.create({
+  baseURL: "/api/v1",
+  headers: {
+    Authorization: `Bearer ${state.token}`
+  }
+})
 
   const displayAlert = () => {
     dispatch({ type: DISPLAY_ALERT });
@@ -142,8 +145,8 @@ export const AppProvider = ({ children }) => {
 
   const updateUser = async (currentUser) => {
     try {
-      const { data } = await axios.patch("/api/v1/auth/updateUser", currentUser)
-      console.log(data);
+      const { data } = await authFetch.patch("/auth/updateUser", currentUser)
+      
     } catch (error) {
       console.log(error.response);
     }
