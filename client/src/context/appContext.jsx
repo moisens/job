@@ -18,6 +18,7 @@ import {
   UPDATE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
+  HANDLE_CHANGE,
 } from "./actions";
 
 const user = localStorage.getItem("user");
@@ -41,7 +42,7 @@ export const initialState = {
   jobTypeOptions: ["full-time", "part-time", "remote", "internship"],
   jobType: "full-time",
   statusOptions: ["pending", "interview", "declined"],
-  status: "pending"
+  status: "pending",
 };
 
 export const AppContext = createContext();
@@ -197,6 +198,10 @@ export const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const handleChange = ({ name, value }) => {
+    dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -208,6 +213,7 @@ export const AppProvider = ({ children }) => {
         toggleSidebar,
         logoutUser,
         updateUser,
+        handleChange,
       }}
     >
       {children}
