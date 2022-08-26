@@ -15,7 +15,8 @@ import {
   UPDATE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
-  HANDLE_CHANGE
+  HANDLE_CHANGE,
+  CLEAR_VALUES,
 } from "./actions";
 import { initialState } from "./appContext";
 
@@ -150,7 +151,7 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: true,
-    }
+    };
   }
 
   if (action.type === UPDATE_USER_SUCCESS) {
@@ -163,8 +164,8 @@ const reducer = (state, action) => {
       jobLocation: action.payload.location,
       showAlert: true,
       alertType: "success",
-      alertText: "User Profile updated!"
-    }
+      alertText: "User Profile updated!",
+    };
   }
 
   if (action.type === UPDATE_USER_ERROR) {
@@ -174,14 +175,30 @@ const reducer = (state, action) => {
       showAlert: true,
       alertType: "danger",
       alertText: action.payload.msg,
-    }
+    };
   }
 
   if (action.type === HANDLE_CHANGE) {
     return {
       ...state,
-      [action.payload.name]: action.payload.value 
-    }
+      [action.payload.name]: action.payload.value,
+    };
+  }
+
+  if (action.type === CLEAR_VALUES) {
+    const initialState = {
+      isEditing: false,
+      editJobId: "",
+      position: "",
+      company: "",
+      jobLocation: state.user.userLocation,
+      jobType: "full-time",
+      status: "pending",
+    };
+    return {
+      ...state,
+      ...initialState,
+    };
   }
 
   throw new Error(`no such action: ${action.type}`);
