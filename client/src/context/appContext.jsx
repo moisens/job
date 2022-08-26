@@ -19,6 +19,7 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
   HANDLE_CHANGE,
+  CLEAR_VALUES,
 } from "./actions";
 
 const user = localStorage.getItem("user");
@@ -202,6 +203,10 @@ export const AppProvider = ({ children }) => {
     dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
   };
 
+  const clearValues = () => {
+    dispatch({ type: "CLEAR_VALUES" })
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -214,6 +219,7 @@ export const AppProvider = ({ children }) => {
         logoutUser,
         updateUser,
         handleChange,
+        clearValues,
       }}
     >
       {children}
