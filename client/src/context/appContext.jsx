@@ -25,6 +25,7 @@ import {
   CREATE_JOB_ERROR,
   GET_JOBS_BEGIN,
   GET_JOBS_SUCCESS,
+  SET_EDIT_JOB,
 } from "./actions";
 
 const user = localStorage.getItem("user");
@@ -257,12 +258,16 @@ export const AppProvider = ({ children }) => {
   };
 
   const setEditJob = (id) => {
-    console.log(`set edit job : ${id}`);
+    dispatch({ type: SET_EDIT_JOB, payload: { id } });
+  };
+
+  const editJob = () => {
+    console.log(`Edit job!`);
   }
 
   const deleteJob = (id) => {
-    console.log(`delete : ${id}`);
-  }
+    console.log(`delete ${_id}`);
+  };
 
   return (
     <AppContext.Provider
@@ -281,7 +286,7 @@ export const AppProvider = ({ children }) => {
         getJobs,
         setEditJob,
         deleteJob,
-        
+        editJob
       }}
     >
       {children}
