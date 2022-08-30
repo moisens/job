@@ -21,10 +21,6 @@ const getAllJobs = async (req, res) => {
   res.status(StatusCodes.OK).json({ jobs, totalJobs: jobs.length, numOfPages: 1 })
 }
 
-const deleteJob = async (req, res) => {
-  res.send('Delete Job')
-}
-
 const updateJob = async (req, res) => {
   const {id: jobId} = req.params;
   const { company, position } = req.body;
@@ -49,6 +45,19 @@ const updateJob = async (req, res) => {
   })
   res.status(StatusCodes.OK).json({ updateJob });
 }
+
+const deleteJob = async (req, res) => {
+  const { id: jobId } = req.params;
+  const job = await Job.findOne({ _id: jobId });
+
+  if (!job) {
+    throw new NotFoundError(`There is no job with id: ${jobId}`)
+  }
+  checkPermissions(req.user, job.createdBy)
+  await job.remove();
+  res.status(StatusCodes.OK).json({ msg: "Success! Job removed!" })
+}
+
 
 const showStats = async (req, res) => {
   res.send('Show stats')
