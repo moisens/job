@@ -72,7 +72,14 @@ const showStats = async (req, res) => {
     return acc;
   }, {});
 
-  res.status(StatusCodes.OK).json({ stats });
+  const defaultStats = {
+    pending: stats.pending || 0,
+    interview: stats.interview || 0,
+    declined: stats.decline || 0,
+  };
+  let monthlyApplication = [];
+
+  res.status(StatusCodes.OK).json({ defaultStats, monthlyApplication });
 };
 
 export { createJob, getAllJobs, deleteJob, updateJob, showStats };
