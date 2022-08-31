@@ -77,7 +77,7 @@ const showStats = async (req, res) => {
     interview: stats.interview || 0,
     declined: stats.decline || 0,
   };
-  let monthlyApplication = [];
+  let monthlyApplications = [];
 
   res.status(StatusCodes.OK).json({ defaultStats, monthlyApplication });
 };
