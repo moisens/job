@@ -30,6 +30,8 @@ import {
   EDIT_JOB_BEGIN,
   EDIT_JOB_SUCCESS,
   EDIT_JOB_ERROR,
+  SHOW_STATS_BEGIN,
+  SHOW_STATS_SUCCESS,
 } from "./actions";
 
 const user = localStorage.getItem("user");
@@ -58,6 +60,8 @@ export const initialState = {
   totalJobs: 0,
   numOfPages: 1,
   page: 1,
+  stats: {},
+  monthlyApplications: [],
 };
 
 export const AppContext = createContext();
@@ -280,7 +284,7 @@ export const AppProvider = ({ children }) => {
       dispatch({ type: CLEAR_VALUES });
     } catch (error) {
       if (error.response.status === 401) return;
-      dispatch({ type: EDIT_JOB_ERROR, payload: { msg: error.response.msg } })
+      dispatch({ type: EDIT_JOB_ERROR, payload: { msg: error.response.msg } });
     }
   };
 
@@ -293,6 +297,24 @@ export const AppProvider = ({ children }) => {
       //logoutUser();
       console.log(error.response);
     }
+  };
+
+  const showStats = async () => {
+    dispatch({ type: SHOW_STATS_BEGIN });
+    try {
+      const { data } = await authFetch("/jobs/stats");
+      dispatch({
+        type: SHOW_STATS_SUCCESS,
+        payload: {
+          stats: data.defaultStats,
+          monthlyApplications: data.monthlyApplications,
+        },
+      });
+    } catch (error) {
+      console.log(error.response);
+      logoutUser();
+    }
+    clearAlert();
   };
 
   return (
@@ -313,6 +335,7 @@ export const AppProvider = ({ children }) => {
         setEditJob,
         deleteJob,
         editJob,
+        showStats,
       }}
     >
       {children}
