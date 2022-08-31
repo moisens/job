@@ -1,9 +1,26 @@
+import {
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+} from "recharts";
 
-
-const AreaChart = () => {
+const AreaCharts = ({ data }) => {
   return (
-    <div>AreaChart</div>
-  )
-}
+    <ResponsiveContainer width="100%" height={300}>
+      <AreaChart data={data} margin={{ top: 50 }}>
+        <CartesianGrid strokeDasharray="1 1" />
+        <XAxis dataKey="date" />
+        <YAxis allowDecimals={false} />
+        <Tooltip />
+        <Area type="monotone" dataKey="count" stroke="#2cb1bc" fill="#bef8fd" />
 
-export default AreaChart
+      </AreaChart>
+    </ResponsiveContainer>
+  );
+};
+
+export default AreaCharts;
