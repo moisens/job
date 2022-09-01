@@ -56,6 +56,11 @@ export const initialState = {
   jobType: "full-time",
   statusOptions: ["pending", "interview", "declined"],
   status: "pending",
+  search: "",
+  searchStatus: "all",
+  searchType: "all",
+  sort: "latest",
+  sortOptions: ["latest", "oldest", "a-z", "z-a"],
   jobs: [],
   totalJobs: 0,
   numOfPages: 1,
@@ -317,6 +322,10 @@ export const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const clearFilters = () => {
+    console.log("clear filter");
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -336,6 +345,7 @@ export const AppProvider = ({ children }) => {
         deleteJob,
         editJob,
         showStats,
+        clearFilters
       }}
     >
       {children}
