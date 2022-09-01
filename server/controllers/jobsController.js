@@ -18,11 +18,31 @@ const createJob = async (req, res) => {
 };
 
 const getAllJobs = async (req, res) => {
+  const { search, status, jobType, sort  } = req.query;
+
+  const queryObject = {
+    createdBy: req.user.userId
+  }
+
+  if (status !== "all") {
+    queryObject.status = status
+  }
+
+  let result = Job.find(queryObject);
+  const jobs = await result;
+  res
+    .status(StatusCodes.OK)
+    .json({ jobs, totalJobs: jobs.length, numOfPages: 1 });
+};
+
+/*
+const getAllJobs = async (req, res) => {
   const jobs = await Job.find({ createdBy: req.user.userId });
   res
     .status(StatusCodes.OK)
     .json({ jobs, totalJobs: jobs.length, numOfPages: 1 });
 };
+*/
 
 const updateJob = async (req, res) => {
   const { id: jobId } = req.params;
