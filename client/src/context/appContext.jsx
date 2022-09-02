@@ -32,6 +32,7 @@ import {
   EDIT_JOB_ERROR,
   SHOW_STATS_BEGIN,
   SHOW_STATS_SUCCESS,
+  CLEAR_FILTERS,
 } from "./actions";
 
 const user = localStorage.getItem("user");
@@ -323,8 +324,8 @@ export const AppProvider = ({ children }) => {
   };
 
   const clearFilters = () => {
-    console.log("clear filter");
-  }
+    dispatch({ type: CLEAR_FILTERS });
+  };
 
   return (
     <AppContext.Provider
@@ -345,7 +346,7 @@ export const AppProvider = ({ children }) => {
         deleteJob,
         editJob,
         showStats,
-        clearFilters
+        clearFilters,
       }}
     >
       {children}
