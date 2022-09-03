@@ -10,7 +10,7 @@ import JobsContainer from "./JobsContainer";
 import Loading from "./Loading";
 import StatsContainer from "./StatsContainer";
 import ChartsContainer from "./ChartsContainer";
-
+import PageBtnContainer from "./PageBtnContainer";
 
 export {
   Logo,
@@ -25,4 +25,5 @@ export {
   Loading,
   StatsContainer,
   ChartsContainer,
+  PageBtnContainer
 };
