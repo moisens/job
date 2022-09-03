@@ -272,7 +272,6 @@ export const AppProvider = ({ children }) => {
         payload: { jobs, totalJobs, numOfPages },
       });
     } catch (error) {
-      console.log(error.response);
       logoutUser();
     }
     clearAlert();
@@ -307,8 +306,7 @@ export const AppProvider = ({ children }) => {
       await authFetch.delete(`/jobs/${jobId}`);
       getJobs();
     } catch (error) {
-      //logoutUser();
-      console.log(error.response);
+      logoutUser();
     }
   };
 
@@ -325,7 +323,7 @@ export const AppProvider = ({ children }) => {
       });
     } catch (error) {
       console.log(error.response);
-      //logoutUser();
+      logoutUser();
     }
     clearAlert();
   };
